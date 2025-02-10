@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: black;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .toggle-link {
+            margin-top: 10px;
+            display: block;
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .toggle-link:hover {
+            text-decoration: underline;
+        }
+
+        #message {
+            color: green;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 id="form-title">Login</h2>
+        <form id="auth-form">
+            <input type="text" id="name-field" placeholder="Full Name" required style="display: none;">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" id="submit-btn">Login</button>
+        </form>
+        <p id="message"></p>
+        <a class="toggle-link" onclick="toggleForm()">Create an account</a>
+    </div>
+
+    <script>
+        let isLogin = true; // Track form mode
+
+        function toggleForm() {
+            isLogin = !isLogin; 
+            document.getElementById("form-title").textContent = isLogin ? "Login" : "Sign Up";
+            document.getElementById("name-field").style.display = isLogin ? "none" : "block";
+            document.getElementById("submit-btn").textContent = isLogin ? "Login" : "Sign Up";
+            document.querySelector(".toggle-link").textContent = isLogin ? "Create an account" : "Already have an account? Login";
+            document.getElementById("message").textContent = ""; // Clear message
+        }
+
+        document.getElementById("auth-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const name = document.getElementById("name-field").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (!email || !password || (!isLogin && !name)) {
+                document.getElementById("message").textContent = "All fields are required!";
+                return;
+            }
+
+            document.getElementById("message").textContent = isLogin ? "Login successful!" : "Signup successful!";
+        });
+    </script>
+
+</body>
+</html>
